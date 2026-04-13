@@ -1,4 +1,4 @@
-# DB Visualizer 📊
+# DB Visualizer
 
 A professional desktop application for exploring, querying, and analyzing CSV/JSON datasets with an interactive, kid-friendly interface.
 
@@ -163,7 +163,7 @@ monkeydb-visualizer/
 - Uploads artifacts for download
 - Stores in Actions tab for 90 days
 
-**🚀 Release** (`.github/workflows/release.yml`)
+** Release** (`.github/workflows/release.yml`)
 - Triggers on git tag creation (`v*`)
 - Runs full test suite
 - Builds desktop installer
@@ -350,10 +350,7 @@ MIT License - See LICENSE file for details
 
 ## Credits
 
-Built with ❤️ using React, Electron, and TypeScript.
+**Made by [Keerthi Surya Teja](https://github.com/keerthisuryateja) 
+& [Sahithya](https://github.com/SahithyaKedala)**
 
----
-
-**Made by [Keerth Surya Teja](https://github.com/keerthisuryateja)**
-
-Have feedback? Create an issue or start a discussion! 🚀
+Have feedback? Create an issue or start a discussion! 
