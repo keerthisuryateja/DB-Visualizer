@@ -1,0 +1,69 @@
+name: Build Desktop App
+
+on:
+  push:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build web bundle
+      run: npm run build
+
+    - name: Build Windows installer
+      run: npm run build:installer
+
+    - name: Upload release artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-installer
+        path: release/
+        retention-days: 90
+        if-no-files-found: ignore
+
+    - name: List artifacts
+      run: |
+        echo "Build artifacts created:"
+        Get-ChildItem -Path release/ -Recurse | Select-Object -Property FullName
+      shell: pwsh
+
+  build-web:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build web bundle
+      run: npm run build
+
+    - name: Upload web artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-bundle
+        path: dist/
+        retention-days: 90
