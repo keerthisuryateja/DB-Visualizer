@@ -5,6 +5,9 @@ on:
     branches: [ main, develop ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -37,9 +40,14 @@ jobs:
         if-no-files-found: ignore
 
     - name: List artifacts
+      if: always()
       run: |
         echo "Build artifacts created:"
-        Get-ChildItem -Path release/ -Recurse | Select-Object -Property FullName
+        if (Test-Path release/) {
+          Get-ChildItem -Path release/ -Recurse | Select-Object -Property FullName
+        } else {
+          Write-Host "No release directory was generated."
+        }
       shell: pwsh
 
   build-web:
